@@ -1,6 +1,6 @@
 <div align="center">
 
-# ⚡ QuantPulse
+# ⚡ QuantPulse Pro V3
 
 ### AI-Powered Multi-Market Trading Dashboard
 
@@ -82,6 +82,12 @@ Dashboard ini **bukan bot trading otomatis** — melainkan alat analisis cerdas 
 - Riwayat trade lengkap
 - Win rate + Profit Factor otomatis
 
+### 🤖 AI Analysis *(Opsional — Gratis)*
+- **5 AI agent** berbasis Google Gemini Flash
+- Technical Analyst + Sentiment Analyst + Bull Agent + Bear Agent + Trader Agent
+- Keputusan final dalam **Bahasa Indonesia**
+- Biaya **$0** (15 request/menit gratis dari Google AI Studio)
+
 ### 📖 Panduan Eksekusi
 - Step-by-step cara buka posisi di broker
 - Cara membaca setiap metrik
@@ -132,6 +138,7 @@ portfolio_manager.py   → PnL realtime + riwayat trade
 predictive_trade.py    → Proyeksi 5 candle ke depan
 sr_detector.py         → Support & Resistance 4 metode
 candle_detector.py     → 18 pola candlestick
+ai_agents.py           → 5 Gemini AI agents (opsional)
 auto_refresh.py        → Auto-refresh sidebar
 app.py                 → Dashboard Streamlit (10 tab)
 ```
@@ -189,6 +196,32 @@ Buka browser ke **http://localhost:8501**
 
 ---
 
+## 🤖 Setup AI Analysis *(Opsional — Gratis)*
+
+AI Analysis menggunakan Google Gemini Flash yang **gratis** (15 req/menit, 1 juta token/hari).
+
+### 1. Dapatkan API Key
+
+Buka [aistudio.google.com](https://aistudio.google.com) → Login → **Get API Key** → **Create API key** → Copy
+
+### 2. Simpan API Key
+
+Buat file `.streamlit/secrets.toml`:
+
+```toml
+GOOGLE_API_KEY = "AIzaSy_paste_key_kamu_disini"
+```
+
+### 3. Pastikan .gitignore
+
+```bash
+echo ".streamlit/secrets.toml" >> .gitignore
+```
+
+> ⚠️ **Jangan pernah commit API key ke GitHub!**
+
+---
+
 ## ☁️ Deploy ke Streamlit Cloud
 
 ### 1. Push ke GitHub
@@ -219,6 +252,7 @@ ccxt>=4.0.0
 yfinance>=0.2.40
 requests>=2.31.0
 streamlit-autorefresh>=1.0.1
+google-generativeai>=0.8.0
 plotly>=5.18.0
 ```
 
@@ -239,6 +273,7 @@ QuantPulse/
 ├── predictive_trade.py     ← Prediksi candle ke depan
 ├── sr_detector.py          ← Deteksi Support & Resistance
 ├── candle_detector.py      ← Deteksi pola candlestick
+├── ai_agents.py            ← AI agents (Gemini Flash)
 ├── auto_refresh.py         ← Auto-refresh helper
 ├── requirements.txt        ← Dependencies
 ├── .gitignore
@@ -258,14 +293,81 @@ QuantPulse/
 | 📐 **S&R** | Support & Resistance 4 metode + Fibonacci |
 | 🕯️ **Candle** | 18 pola candlestick + konfirmasi sinyal |
 | 🔮 **Prediksi** | Proyeksi 5 candle + entry broker siap pakai |
+| 🤖 **AI Analysis** | 5 Gemini agent + keputusan Bahasa Indonesia |
 | 📖 **Panduan** | Step-by-step eksekusi + rekomendasi broker |
 | 🔧 **Debug** | Status modul + data source info |
 
 ---
 
+
+## 🔒 Catatan Penggunaan VPN
+
+Beberapa fitur QuantPulse Pro membutuhkan koneksi ke server exchange internasional (OKX, Bybit, Binance) yang **mungkin diblokir** di beberapa jaringan internet Indonesia, terutama dari ISP tertentu atau jaringan kantor/kampus.
+
+### Kapan VPN Diperlukan?
+
+| Kondisi | Perlu VPN? |
+|---------|-----------|
+| Data crypto dari OKX/Bybit tidak muncul | ✅ Ya |
+| Muncul error `451 Unavailable For Legal Reasons` | ✅ Ya |
+| Muncul error `connection timeout` ke exchange | ✅ Ya |
+| Data saham IDX/US dari yfinance tidak muncul | ❌ Tidak |
+| Data Forex/Gold tidak muncul | ❌ Tidak |
+| Semua data tampil normal | ❌ Tidak perlu |
+
+> 💡 **Tips**: Buka tab **🔧 Debug** → lihat kolom **Sumber**. Jika tertulis `DEMO` padahal Mode Demo sudah OFF, kemungkinan koneksi ke exchange diblokir.
+
+### Rekomendasi VPN Gratis
+
+| VPN | Platform | Batas Data | Cocok untuk |
+|-----|----------|-----------|-------------|
+| **Cloudflare WARP** | Windows, Mac, Android, iOS | Unlimited | Terbaik — cepat dan gratis |
+| **ProtonVPN** | Semua platform | Unlimited (speed dibatasi) | Alternatif terpercaya |
+| **Windscribe** | Semua platform | 10 GB/bulan | Jika WARP tidak cukup |
+| **TunnelBear** | Semua platform | 500 MB/bulan | Testing saja |
+
+### Setup Cloudflare WARP (Direkomendasikan)
+
+Cloudflare WARP adalah pilihan terbaik karena **gratis, unlimited, dan tidak memperlambat koneksi** secara signifikan.
+
+**Windows / Mac:**
+1. Download di [one.one.one.one](https://one.one.one.one)
+2. Install dan buka aplikasi
+3. Klik tombol toggle → status berubah jadi **Connected**
+4. Buka QuantPulse → Refresh Data
+
+**Android / iOS:**
+1. Download **"1.1.1.1 + WARP"** dari Play Store / App Store
+2. Buka app → aktifkan WARP
+3. Buka browser → akses dashboard QuantPulse
+
+**Linux:**
+```bash
+# Install WARP CLI
+curl -fsSL https://pkg.cloudflareclient.com/pubkey.gpg | sudo gpg --yes --dearmor -o /usr/share/keyrings/cloudflare-warp-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/cloudflare-warp-archive-keyring.gpg] https://pkg.cloudflareclient.com/ $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/cloudflare-client.list
+sudo apt update && sudo apt install cloudflare-warp
+warp-cli connect
+```
+
+### Jika VPN Tidak Tersedia
+
+QuantPulse dirancang dengan **fallback otomatis**. Jika exchange diblokir, sistem mencoba exchange lain secara berurutan:
+
+```
+OKX → Bybit → KuCoin → Binance → Demo Data
+```
+
+Untuk Forex, Gold, Oil, dan Saham IDX/US yang menggunakan **yfinance**, VPN **tidak diperlukan** karena yfinance tidak diblokir di Indonesia.
+
+### Catatan Hukum
+
+> ⚠️ Penggunaan VPN untuk mengakses platform trading internasional merupakan tanggung jawab pengguna sepenuhnya. Pastikan penggunaan VPN sesuai dengan hukum dan regulasi yang berlaku di wilayah kamu. QuantPulse Pro tidak berafiliasi dengan layanan VPN manapun.
+
+---
 ## ⚠️ Disclaimer
 
-> **QuantPulse adalah alat analisis, bukan saran investasi.**
+> **QuantPulse Pro adalah alat analisis, bukan saran investasi.**
 >
 > - Semua sinyal dan prediksi bersifat **estimasi**, bukan jaminan profit
 > - Selalu gunakan **Stop Loss** di setiap posisi
@@ -285,6 +387,6 @@ MIT License — bebas digunakan, dimodifikasi, dan didistribusikan.
 
 **Dibuat dengan ❤️ untuk trader Indonesia**
 
-*QuantPulse — Multi-Market · Multi-Platform · AI-Powered*
+*QuantPulse Pro V3 — Multi-Market · Multi-Platform · AI-Powered*
 
 </div>
