@@ -82,12 +82,6 @@ Dashboard ini **bukan bot trading otomatis** — melainkan alat analisis cerdas 
 - Riwayat trade lengkap
 - Win rate + Profit Factor otomatis
 
-### 🤖 AI Analysis *(Opsional — Gratis)*
-- **5 AI agent** berbasis Google Gemini Flash
-- Technical Analyst + Sentiment Analyst + Bull Agent + Bear Agent + Trader Agent
-- Keputusan final dalam **Bahasa Indonesia**
-- Biaya **$0** (15 request/menit gratis dari Google AI Studio)
-
 ### 📖 Panduan Eksekusi
 - Step-by-step cara buka posisi di broker
 - Cara membaca setiap metrik
@@ -138,7 +132,6 @@ portfolio_manager.py   → PnL realtime + riwayat trade
 predictive_trade.py    → Proyeksi 5 candle ke depan
 sr_detector.py         → Support & Resistance 4 metode
 candle_detector.py     → 18 pola candlestick
-ai_agents.py           → 5 Gemini AI agents (opsional)
 auto_refresh.py        → Auto-refresh sidebar
 app.py                 → Dashboard Streamlit (10 tab)
 ```
@@ -196,32 +189,6 @@ Buka browser ke **http://localhost:8501**
 
 ---
 
-## 🤖 Setup AI Analysis *(Opsional — Gratis)*
-
-AI Analysis menggunakan Google Gemini Flash yang **gratis** (15 req/menit, 1 juta token/hari).
-
-### 1. Dapatkan API Key
-
-Buka [aistudio.google.com](https://aistudio.google.com) → Login → **Get API Key** → **Create API key** → Copy
-
-### 2. Simpan API Key
-
-Buat file `.streamlit/secrets.toml`:
-
-```toml
-GOOGLE_API_KEY = "AIzaSy_paste_key_kamu_disini"
-```
-
-### 3. Pastikan .gitignore
-
-```bash
-echo ".streamlit/secrets.toml" >> .gitignore
-```
-
-> ⚠️ **Jangan pernah commit API key ke GitHub!**
-
----
-
 ## ☁️ Deploy ke Streamlit Cloud
 
 ### 1. Push ke GitHub
@@ -252,7 +219,6 @@ ccxt>=4.0.0
 yfinance>=0.2.40
 requests>=2.31.0
 streamlit-autorefresh>=1.0.1
-google-generativeai>=0.8.0
 plotly>=5.18.0
 ```
 
@@ -273,7 +239,6 @@ QuantPulse/
 ├── predictive_trade.py     ← Prediksi candle ke depan
 ├── sr_detector.py          ← Deteksi Support & Resistance
 ├── candle_detector.py      ← Deteksi pola candlestick
-├── ai_agents.py            ← AI agents (Gemini Flash)
 ├── auto_refresh.py         ← Auto-refresh helper
 ├── requirements.txt        ← Dependencies
 ├── .gitignore
@@ -293,7 +258,6 @@ QuantPulse/
 | 📐 **S&R** | Support & Resistance 4 metode + Fibonacci |
 | 🕯️ **Candle** | 18 pola candlestick + konfirmasi sinyal |
 | 🔮 **Prediksi** | Proyeksi 5 candle + entry broker siap pakai |
-| 🤖 **AI Analysis** | 5 Gemini agent + keputusan Bahasa Indonesia |
 | 📖 **Panduan** | Step-by-step eksekusi + rekomendasi broker |
 | 🔧 **Debug** | Status modul + data source info |
 
