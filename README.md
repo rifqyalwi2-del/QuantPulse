@@ -88,10 +88,11 @@ QuantPulse Pro adalah dashboard analisis trading berbasis AI yang mendukung **se
 - Alert: mendekati SL, drawdown besar, alokasi berlebih
 - Riwayat trade + Win Rate + Profit Factor otomatis
 
-### 🤖 AI Analysis *(Opsional — Gratis)*
-- 5 AI agent: Technical → Sentiment → Bull → Bear → Trader Agent
-- Keputusan final dalam **Bahasa Indonesia** + Entry, SL, TP, alasan
-- Biaya **$0** via Google AI Studio (15 req/menit, gratis)
+### 📖 Panduan Eksekusi
+- Step-by-step cara buka posisi di broker
+- Cara membaca setiap metrik
+- 5 rules wajib yang tidak boleh dilanggar
+- Rekomendasi broker per market
 
 ---
 
@@ -124,19 +125,30 @@ QuantPulse Pro adalah dashboard analisis trading berbasis AI yang mendukung **se
 ```
 QuantPulse Pro V3 — 13 Modul, 6,242 Baris
 
-data_loader.py           598   Fetch OHLCV — ccxt + yfinance
-signal_engine.py         603   6 indikator + Ensemble + MTFA
-risk_engine.py           402   SL/TP + sizing + spread broker
-backtester.py            693   Walk-Forward + Grade A-F
-portfolio_manager.py     344   PnL realtime USD + IDR
-predictive_trade.py      424   Proyeksi 5 candle ke depan
-sr_detector.py           550   S/R 4 metode + Fibonacci
-candle_detector.py       404   18 pola candlestick
-watchlist.py             237   Scanner multi-simbol
-journal.py               390   Jurnal trading + statistik
-calculator.py            163   Kalkulator posisi + margin
-auto_refresh.py           37   Auto-refresh sidebar
-app.py                 1,397   Dashboard — 12 tab
+data_loader.py         → Fetch data OHLCV dari exchange
+signal_engine.py       → 6 indikator + Ensemble + MTFA
+risk_engine.py         → SL/TP + sizing + spread tolerance
+backtester.py          → Simulasi historis + Walk-Forward
+portfolio_manager.py   → PnL realtime + riwayat trade
+predictive_trade.py    → Proyeksi 5 candle ke depan
+sr_detector.py         → Support & Resistance 4 metode
+candle_detector.py     → 18 pola candlestick
+auto_refresh.py        → Auto-refresh sidebar
+app.py                 → Dashboard Streamlit (10 tab)
+```
+
+### Alur Data
+
+```
+Exchange/yfinance
+      ↓
+data_loader.py  →  OHLCV DataFrame
+      ↓
+signal_engine.py  →  SignalResult (BUY/SELL/HOLD + confidence)
+      ↓
+risk_engine.py   →  RiskResult (entry, SL, TP, sizing, spread)
+      ↓
+app.py           →  Dashboard 10 tab
 ```
 
 ---
@@ -178,52 +190,6 @@ Buka **http://localhost:8501**
 
 ---
 
-## 🤖 Setup AI Analysis *(Opsional — Gratis)*
-
-1. Buka [aistudio.google.com](https://aistudio.google.com) → Login → **Get API Key** → Copy
-
-2. Buat `.streamlit/secrets.toml`:
-
-```toml
-GOOGLE_API_KEY = "AIzaSy_paste_key_kamu_disini"
-```
-
-3. Tambahkan ke `.gitignore`:
-
-```bash
-echo ".streamlit/secrets.toml" >> .gitignore
-```
-
-> ⚠️ Jangan pernah commit API key ke GitHub!
-
----
-
-## 🔒 Catatan Penggunaan VPN
-
-Beberapa ISP Indonesia memblokir exchange crypto internasional. Jika data crypto tidak muncul padahal Mode Demo OFF, gunakan VPN.
-
-**Kapan perlu VPN:**
-- Muncul error `451 Unavailable For Legal Reasons`
-- Tab Debug menampilkan `Sumber: DEMO` padahal Mode Demo OFF
-- Data crypto tidak update meski sudah Refresh
-
-**Rekomendasi (gratis):**
-
-| VPN | Batas | Keterangan |
-|-----|-------|------------|
-| **Cloudflare WARP** | Unlimited | Terbaik — cepat dan gratis |
-| **ProtonVPN** | Unlimited* | Terpercaya, speed dibatasi |
-| **Windscribe** | 10 GB/bulan | Alternatif |
-
-**Setup Cloudflare WARP:**
-1. Download di [one.one.one.one](https://one.one.one.one)
-2. Install → aktifkan toggle → **Connected**
-3. Refresh Data di QuantPulse
-
-> Untuk Forex, Gold, Oil, dan Saham IDX/US — VPN **tidak diperlukan**.
-
----
-
 ## ☁️ Deploy ke Streamlit Cloud
 
 ```bash
@@ -249,7 +215,6 @@ ccxt>=4.0.0
 yfinance>=0.2.40
 requests>=2.31.0
 streamlit-autorefresh>=1.0.1
-google-generativeai>=0.8.0
 plotly>=5.18.0
 ```
 
@@ -261,20 +226,17 @@ plotly>=5.18.0
 QuantPulse/
 ├── .streamlit/
 │   └── secrets.toml        ← API keys (jangan di-commit)
-├── app.py                  ← Dashboard utama — 12 tab
-├── signal_engine.py
-├── risk_engine.py
-├── data_loader.py
-├── backtester.py
-├── portfolio_manager.py
-├── predictive_trade.py
-├── sr_detector.py
-├── candle_detector.py
-├── watchlist.py            ← Scanner multi-simbol (baru)
-├── journal.py              ← Jurnal trading (baru)
-├── calculator.py           ← Kalkulator posisi (baru)
-├── auto_refresh.py
-├── requirements.txt
+├── app.py                  ← Dashboard utama (10 tab)
+├── signal_engine.py        ← Engine sinyal teknikal
+├── risk_engine.py          ← Engine manajemen risiko
+├── data_loader.py          ← Fetch data dari exchange
+├── backtester.py           ← Backtesting & Walk-Forward
+├── portfolio_manager.py    ← Manajemen portofolio
+├── predictive_trade.py     ← Prediksi candle ke depan
+├── sr_detector.py          ← Deteksi Support & Resistance
+├── candle_detector.py      ← Deteksi pola candlestick
+├── auto_refresh.py         ← Auto-refresh helper
+├── requirements.txt        ← Dependencies
 ├── .gitignore
 └── README.md
 ```
@@ -283,20 +245,17 @@ QuantPulse/
 
 ## 📊 Dashboard — 12 Tab
 
-| # | Tab | Fungsi |
-|---|-----|--------|
-| 1 | 📡 **Sinyal** | Candlestick chart + EMA + Volume + sinyal BUY/SELL/HOLD |
-| 2 | 🛡️ **Risk & Eksekusi** | Entry/SL/TP + level broker + estimasi profit IDR/USD |
-| 3 | 📁 **Portfolio** | Posisi aktif + PnL realtime + alert + riwayat trade |
-| 4 | 📊 **Backtest** | Simulasi historis + Walk-Forward + Grade A–F |
-| 5 | 📐 **S&R** | Support & Resistance 4 metode + Fibonacci |
-| 6 | 🕯️ **Candle** | 18 pola candlestick + konfirmasi sinyal |
-| 7 | 🔮 **Prediksi** | Proyeksi 5 candle + entry broker |
-| 8 | 👁️ **Watchlist** | Scan multi-simbol + highlight sinyal terkuat |
-| 9 | 📔 **Jurnal** | Catat trade + statistik pribadi + export CSV |
-| 10 | 🧮 **Kalkulator** | Hitung lot/margin/profit tanpa data live |
-| 11 | 📖 **Panduan** | Step-by-step eksekusi + rekomendasi broker |
-| 12 | 🔧 **Debug** | Status modul + data source info |
+| Tab | Fungsi |
+|-----|--------|
+| 📡 **Sinyal** | Candlestick chart + sinyal BUY/SELL/HOLD + breakdown indikator |
+| 🛡️ **Risk & Eksekusi** | Entry/SL/TP + level broker + estimasi profit IDR/USD |
+| 📁 **Portfolio** | PnL realtime + posisi aktif + riwayat trade |
+| 📊 **Backtest** | Simulasi historis + Walk-Forward + Grade A–F |
+| 📐 **S&R** | Support & Resistance 4 metode + Fibonacci |
+| 🕯️ **Candle** | 18 pola candlestick + konfirmasi sinyal |
+| 🔮 **Prediksi** | Proyeksi 5 candle + entry broker siap pakai |
+| 📖 **Panduan** | Step-by-step eksekusi + rekomendasi broker |
+| 🔧 **Debug** | Status modul + data source info |
 
 ---
 
