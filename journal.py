@@ -303,8 +303,6 @@ def render_journal(
         j_lesson  = st.text_area("Pelajaran", placeholder="Selalu tunggu close candle sebelum entry...", key="jadd_les", height=68)
 
         if st.button("💾 Simpan ke Jurnal", use_container_width=True, type="primary"):
-
-         if st.button("💾 Simpan ke Jurnal", use_container_width=True, type="primary"):
             if not j_sym.strip():
                 st.error("Masukkan simbol terlebih dahulu")
             else:
