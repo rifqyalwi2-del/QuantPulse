@@ -6,12 +6,13 @@
 
 **Menghilangkan Emosi dari Investasi, Menghadirkan Presisi Institusi**
 
-[![Python](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python)](https://python.org)
-[![Streamlit](https://img.shields.io/badge/Streamlit-1.35%2B-red?logo=streamlit)](https://streamlit.io)
-[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
-[![Platform](https://img.shields.io/badge/Platform-Multi--Market-orange)](#market-yang-didukung)
+[![Python](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python&logoColor=white)](https://python.org)
+[![Streamlit](https://img.shields.io/badge/Streamlit-1.35%2B-FF4B4B?logo=streamlit&logoColor=white)](https://streamlit.io)
+[![Plotly](https://img.shields.io/badge/Plotly-5.18%2B-3F4F75?logo=plotly&logoColor=white)](https://plotly.com)
+[![License](https://img.shields.io/badge/License-MIT-22C55E)](LICENSE)
+[![Platform](https://img.shields.io/badge/Platform-Multi--Market-F59E0B)](#market-yang-didukung)
 
-[Demo Live](#) · [Dokumentasi](#cara-pakai) · [Lapor Bug](issues)
+*13 modul · 6,242 baris · 12 tab dashboard*
 
 </div>
 
@@ -19,226 +20,222 @@
 
 ## 📋 Tentang QuantPulse Pro
 
-QuantPulse Pro adalah dashboard analisis trading berbasis AI yang dirancang untuk semua jenis market dan kompatibel dengan semua platform eksekusi. Tidak seperti tool trading lain yang hanya fokus ke satu market, QuantPulse mendukung **Crypto, Forex, Saham IDX, Saham US, Gold, dan Oil** dalam satu dashboard terintegrasi.
+QuantPulse Pro adalah dashboard analisis trading berbasis AI yang mendukung **semua jenis market** dalam satu tampilan — Crypto, Forex, Saham IDX, Saham US, Gold, dan Oil. Dirancang untuk trader Indonesia yang ingin analisis berkualitas institusi tanpa biaya langganan mahal.
 
-Dashboard ini **bukan bot trading otomatis** — melainkan alat analisis cerdas yang membantu trader membuat keputusan lebih baik dengan data teknikal, AI reasoning, dan manajemen risiko yang terstruktur.
+> **QuantPulse Pro adalah alat analisis, bukan bot trading otomatis.** Semua keputusan eksekusi tetap di tangan trader.
 
 ---
 
-## ✨ Fitur Utama
+## ✨ Fitur Lengkap
 
 ### 📡 Signal Engine
-- **6 indikator teknikal**: RSI, MACD, Bollinger Bands, EMA Crossover, Stochastic, Volume
-- **Ensemble voting** dengan bobot adaptif per market
+- 6 indikator teknikal: RSI, MACD, Bollinger Bands, EMA Crossover, Stochastic, Volume
+- Ensemble voting adaptif dengan bobot per market
 - **Multi-Timeframe Analysis (MTFA)**: HTF + MTF + LTF sekaligus
-- **Adaptive confidence scoring** dengan baseline 20%
-- **Regime detection**: LOW / NORMAL / HIGH / CRISIS
+- Adaptive confidence scoring (baseline 20%, maks 95%)
+- Regime detection: `LOW` / `NORMAL` / `HIGH` / `CRISIS`
 
 ### 🛡️ Risk Engine
-- Entry, Stop Loss, Take Profit otomatis berbasis ATR
-- **Toleransi spread** per platform (Binance, OKX, MT5, Stockbit, dll)
-- Level BUY/SELL siap pakai di semua broker dan exchange
+- Stop Loss dan Take Profit otomatis berbasis ATR
+- **Toleransi spread broker** — level BUY/SELL siap pakai di semua exchange dan broker
 - Kelly Criterion position sizing
-- Estimasi profit/loss dalam **USD dan IDR**
+- Estimasi profit/loss dalam **USD dan Rupiah**
 - Value at Risk (VaR) 95%
-- Veto system — trade ditolak otomatis jika kondisi tidak layak
+- Veto system — sinyal ditolak otomatis jika kondisi tidak layak
 
 ### 📊 Backtester
-- Anti look-ahead bias — sinyal dihitung dari `df[:i]`, entry di open `i+1`
-- **Walk-Forward Analysis** (train/test split, N fold)
+- Anti look-ahead bias — sinyal dihitung dari `df[:i]`, entry di open candle `i+1`
+- **Walk-Forward Analysis** (train/test split, konfigurasi N fold)
 - Grade **A–F** untuk penilaian cepat
-- Metrik lengkap: Sharpe, Sortino, Calmar, Max Drawdown, Win Rate, Profit Factor
+- Metrik: Sharpe, Sortino, Calmar, Max Drawdown, Win Rate, Profit Factor
 - Equity curve + Drawdown chart interaktif
 
-### 📐 Support & Resistance Auto-Detection
-- **4 metode**: Pivot Points, Volume Profile, Round Numbers, Fibonacci Retracement
-- Strength scoring per level
-- Zone signal: NEAR_SUPPORT / NEAR_RESISTANCE / IN_RANGE
-- Integrasi otomatis dengan sinyal aktif
+### 📐 Support & Resistance
+- 4 metode: Pivot Points, Volume Profile, Round Numbers, Fibonacci Retracement
+- Strength scoring dan zone signal otomatis
+- Overlay langsung di candlestick chart
 
-### 🕯️ Candlestick Pattern Detector
-- **18 pola** klasik: Hammer, Engulfing, Morning Star, Evening Star, Three White Soldiers, dll
+### 🕯️ Candlestick Chart & Pattern
+- Chart interaktif via **Plotly** — EMA 9 + EMA 21 + Volume bar
+- Slider candle (30–300), toggle volume, S/R overlay otomatis
+- **18 pola candlestick**: Hammer, Engulfing, Morning Star, Evening Star, Three White Soldiers, dll
 - Konfirmasi atau kontradiksi terhadap sinyal engine
-- Quick summary di tab Sinyal
 
 ### 🔮 Prediksi Trade
-- Proyeksi **5 candle ke depan**
-- Range harga atas/bawah
+- Proyeksi **5 candle ke depan** dengan range harga atas/bawah
 - Timestamp dalam **WIB** (Waktu Indonesia Barat)
-- Estimasi profit/loss per candle
-- **Entry Broker** dengan toleransi spread sudah dihitung
+- Estimasi profit/loss per candle + entry broker dengan spread
 
-### 📈 Candlestick Chart
-- Chart interaktif via **Plotly**
-- EMA 9 (kuning) + EMA 21 (biru) overlay
-- Volume bar dengan warna arah candle
-- S/R level overlay otomatis
-- Slider jumlah candle (30–300)
+### 👁️ Watchlist & Quick Scanner
+- Pantau 20+ simbol sekaligus dalam satu tabel
+- Scan sinyal BUY/SELL semua simbol dengan satu klik
+- Filter per sinyal dan market, highlight 3 sinyal terkuat
+- Tambah/hapus simbol sesuka hati
+
+### 📔 Jurnal Trading
+- Catat setiap trade: simbol, arah, entry, SL, TP, setup, kesalahan, pelajaran
+- Auto-fill dari sinyal aktif
+- Statistik pribadi: win rate, profit factor, performa per market
+- Export/import CSV
+
+### 🧮 Kalkulator Posisi
+- Hitung lot, margin, dan estimasi profit/loss tanpa data live
+- Mode "Risk %" atau "Lot Manual", support leverage 1x–100x
+- Auto-fill dari sinyal aktif, output dalam USD dan Rupiah
 
 ### 📁 Portfolio Manager
-- Catat posisi aktif lintas market
-- PnL realtime dalam USD + IDR
+- Posisi aktif lintas market + PnL realtime USD + IDR
 - Alert: mendekati SL, drawdown besar, alokasi berlebih
-- Riwayat trade lengkap
-- Win rate + Profit Factor otomatis
+- Riwayat trade + Win Rate + Profit Factor otomatis
 
 ### 🤖 AI Analysis *(Opsional — Gratis)*
-- **5 AI agent** berbasis Google Gemini Flash
-- Technical Analyst + Sentiment Analyst + Bull Agent + Bear Agent + Trader Agent
-- Keputusan final dalam **Bahasa Indonesia**
-- Biaya **$0** (15 request/menit gratis dari Google AI Studio)
-
-### 📖 Panduan Eksekusi
-- Step-by-step cara buka posisi di broker
-- Cara membaca setiap metrik
-- 5 rules wajib yang tidak boleh dilanggar
-- Rekomendasi broker per market
+- 5 AI agent: Technical → Sentiment → Bull → Bear → Trader Agent
+- Keputusan final dalam **Bahasa Indonesia** + Entry, SL, TP, alasan
+- Biaya **$0** via Google AI Studio (15 req/menit, gratis)
 
 ---
 
 ## 🌐 Market yang Didukung
 
-| Market | Simbol Contoh | Sumber Data |
+| Market | Contoh Simbol | Sumber Data |
 |--------|--------------|-------------|
 | **Crypto** | BTCUSDT, ETHUSDT, SOLUSDT, BNBUSDT | ccxt (OKX → Bybit → KuCoin) |
 | **Forex** | EURUSD, GBPUSD, USDJPY, AUDUSD | yfinance |
-| **Gold & Silver** | XAUUSD, XAGUSD | yfinance (GC=F, SI=F) |
-| **Oil** | OIL (Crude) | yfinance (CL=F) |
+| **Gold & Silver** | XAUUSD, XAGUSD | yfinance |
+| **Oil** | OIL Crude | yfinance |
 | **Saham US** | AAPL, NVDA, TSLA, MSFT, GOOGL | yfinance |
 | **Saham IDX** | BBCA, BBRI, BUMI, WBSA, ANTM, ADRO | yfinance (.JK) |
-
-> Simbol IDX bisa diketik bebas — sistem otomatis menambahkan `.JK` untuk yfinance.
 
 ---
 
 ## 🖥️ Platform Eksekusi yang Kompatibel
 
-QuantPulse memberikan level harga yang bisa langsung digunakan di semua platform:
-
 | Kategori | Platform |
 |----------|----------|
 | **Crypto Exchange** | Binance, OKX, Bybit, KuCoin, Kraken |
-| **Forex / CFD Broker** | MetaTrader 5, cTrader, TradingView, OANDA, IC Markets, Pepperstone |
-| **Saham IDX** | Stockbit, IPOT, Mirae Asset, BNI Sekuritas, Mandiri Sekuritas |
-| **Saham US** | Interactive Brokers, Webull, eToro, Robinhood |
-| **Multi-asset** | TradingView (paper trading), AvaTrade |
+| **Forex / CFD** | MetaTrader 5, cTrader, TradingView, OANDA, IC Markets, XM |
+| **Saham IDX** | Stockbit, IPOT, Mirae Asset, BNI Sekuritas |
+| **Saham US** | Interactive Brokers, Webull, eToro |
 
 ---
 
 ## 🏗️ Arsitektur
 
 ```
-QuantPulse Pro V3 — 11 Modul, 5,787 Baris
+QuantPulse Pro V3 — 13 Modul, 6,242 Baris
 
-data_loader.py         → Fetch data OHLCV dari exchange
-signal_engine.py       → 6 indikator + Ensemble + MTFA
-risk_engine.py         → SL/TP + sizing + spread tolerance
-backtester.py          → Simulasi historis + Walk-Forward
-portfolio_manager.py   → PnL realtime + riwayat trade
-predictive_trade.py    → Proyeksi 5 candle ke depan
-sr_detector.py         → Support & Resistance 4 metode
-candle_detector.py     → 18 pola candlestick
-ai_agents.py           → 5 Gemini AI agents (opsional)
-auto_refresh.py        → Auto-refresh sidebar
-app.py                 → Dashboard Streamlit (10 tab)
-```
-
-### Alur Data
-
-```
-Exchange/yfinance
-      ↓
-data_loader.py  →  OHLCV DataFrame
-      ↓
-signal_engine.py  →  SignalResult (BUY/SELL/HOLD + confidence)
-      ↓
-risk_engine.py   →  RiskResult (entry, SL, TP, sizing, spread)
-      ↓
-app.py           →  Dashboard 10 tab
+data_loader.py           598   Fetch OHLCV — ccxt + yfinance
+signal_engine.py         603   6 indikator + Ensemble + MTFA
+risk_engine.py           402   SL/TP + sizing + spread broker
+backtester.py            693   Walk-Forward + Grade A-F
+portfolio_manager.py     344   PnL realtime USD + IDR
+predictive_trade.py      424   Proyeksi 5 candle ke depan
+sr_detector.py           550   S/R 4 metode + Fibonacci
+candle_detector.py       404   18 pola candlestick
+watchlist.py             237   Scanner multi-simbol
+journal.py               390   Jurnal trading + statistik
+calculator.py            163   Kalkulator posisi + margin
+auto_refresh.py           37   Auto-refresh sidebar
+app.py                 1,397   Dashboard — 12 tab
 ```
 
 ---
 
 ## 🚀 Quick Start
 
-### 1. Clone Repository
+### 1. Clone
 
 ```bash
-git clone https://github.com/USERNAME/QuantPulse.git
+git clone https://github.com/rifqyalwi2-del/QuantPulse.git
 cd QuantPulse
 ```
 
-### 2. Setup Virtual Environment
+### 2. Virtual Environment
 
 ```bash
 # Windows (PowerShell)
 python -m venv .venv
 .venv\Scripts\Activate.ps1
 
-# Mac/Linux
+# Mac / Linux
 python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-### 3. Install Dependencies
+### 3. Install
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Jalankan Dashboard
+### 4. Jalankan
 
 ```bash
 streamlit run app.py
 ```
 
-Buka browser ke **http://localhost:8501**
+Buka **http://localhost:8501**
 
 ---
 
 ## 🤖 Setup AI Analysis *(Opsional — Gratis)*
 
-AI Analysis menggunakan Google Gemini Flash yang **gratis** (15 req/menit, 1 juta token/hari).
+1. Buka [aistudio.google.com](https://aistudio.google.com) → Login → **Get API Key** → Copy
 
-### 1. Dapatkan API Key
-
-Buka [aistudio.google.com](https://aistudio.google.com) → Login → **Get API Key** → **Create API key** → Copy
-
-### 2. Simpan API Key
-
-Buat file `.streamlit/secrets.toml`:
+2. Buat `.streamlit/secrets.toml`:
 
 ```toml
 GOOGLE_API_KEY = "AIzaSy_paste_key_kamu_disini"
 ```
 
-### 3. Pastikan .gitignore
+3. Tambahkan ke `.gitignore`:
 
 ```bash
 echo ".streamlit/secrets.toml" >> .gitignore
 ```
 
-> ⚠️ **Jangan pernah commit API key ke GitHub!**
+> ⚠️ Jangan pernah commit API key ke GitHub!
+
+---
+
+## 🔒 Catatan Penggunaan VPN
+
+Beberapa ISP Indonesia memblokir exchange crypto internasional. Jika data crypto tidak muncul padahal Mode Demo OFF, gunakan VPN.
+
+**Kapan perlu VPN:**
+- Muncul error `451 Unavailable For Legal Reasons`
+- Tab Debug menampilkan `Sumber: DEMO` padahal Mode Demo OFF
+- Data crypto tidak update meski sudah Refresh
+
+**Rekomendasi (gratis):**
+
+| VPN | Batas | Keterangan |
+|-----|-------|------------|
+| **Cloudflare WARP** | Unlimited | Terbaik — cepat dan gratis |
+| **ProtonVPN** | Unlimited* | Terpercaya, speed dibatasi |
+| **Windscribe** | 10 GB/bulan | Alternatif |
+
+**Setup Cloudflare WARP:**
+1. Download di [one.one.one.one](https://one.one.one.one)
+2. Install → aktifkan toggle → **Connected**
+3. Refresh Data di QuantPulse
+
+> Untuk Forex, Gold, Oil, dan Saham IDX/US — VPN **tidak diperlukan**.
 
 ---
 
 ## ☁️ Deploy ke Streamlit Cloud
 
-### 1. Push ke GitHub
-
 ```bash
 git add .
-git commit -m "init: QuantPulse Pro V3"
+git commit -m "feat: QuantPulse Pro V3"
 git push origin main
 ```
 
-### 2. Deploy
-
-1. Buka [share.streamlit.io](https://share.streamlit.io)
-2. Login dengan GitHub
-3. **New app** → pilih repository → main file: `app.py`
-4. **Advanced settings → Secrets** → tambahkan `GOOGLE_API_KEY`
-5. Klik **Deploy**
+Lalu di [share.streamlit.io](https://share.streamlit.io):
+1. **New app** → pilih repo → `app.py`
+2. **Advanced settings → Secrets** → tambahkan `GOOGLE_API_KEY`
+3. Klik **Deploy** → tunggu 3–5 menit
 
 ---
 
@@ -258,121 +255,59 @@ plotly>=5.18.0
 
 ---
 
-## 📁 Struktur File
+## 📁 Struktur Project
 
 ```
 QuantPulse/
 ├── .streamlit/
 │   └── secrets.toml        ← API keys (jangan di-commit)
-├── app.py                  ← Dashboard utama (10 tab)
-├── signal_engine.py        ← Engine sinyal teknikal
-├── risk_engine.py          ← Engine manajemen risiko
-├── data_loader.py          ← Fetch data dari exchange
-├── backtester.py           ← Backtesting & Walk-Forward
-├── portfolio_manager.py    ← Manajemen portofolio
-├── predictive_trade.py     ← Prediksi candle ke depan
-├── sr_detector.py          ← Deteksi Support & Resistance
-├── candle_detector.py      ← Deteksi pola candlestick
-├── ai_agents.py            ← AI agents (Gemini Flash)
-├── auto_refresh.py         ← Auto-refresh helper
-├── requirements.txt        ← Dependencies
+├── app.py                  ← Dashboard utama — 12 tab
+├── signal_engine.py
+├── risk_engine.py
+├── data_loader.py
+├── backtester.py
+├── portfolio_manager.py
+├── predictive_trade.py
+├── sr_detector.py
+├── candle_detector.py
+├── watchlist.py            ← Scanner multi-simbol (baru)
+├── journal.py              ← Jurnal trading (baru)
+├── calculator.py           ← Kalkulator posisi (baru)
+├── auto_refresh.py
+├── requirements.txt
 ├── .gitignore
 └── README.md
 ```
 
 ---
 
-## 📊 Dashboard — 10 Tab
+## 📊 Dashboard — 12 Tab
 
-| Tab | Fungsi |
-|-----|--------|
-| 📡 **Sinyal** | Candlestick chart + sinyal BUY/SELL/HOLD + breakdown indikator |
-| 🛡️ **Risk & Eksekusi** | Entry/SL/TP + level broker + estimasi profit IDR/USD |
-| 📁 **Portfolio** | PnL realtime + posisi aktif + riwayat trade |
-| 📊 **Backtest** | Simulasi historis + Walk-Forward + Grade A–F |
-| 📐 **S&R** | Support & Resistance 4 metode + Fibonacci |
-| 🕯️ **Candle** | 18 pola candlestick + konfirmasi sinyal |
-| 🔮 **Prediksi** | Proyeksi 5 candle + entry broker siap pakai |
-| 🤖 **AI Analysis** | 5 Gemini agent + keputusan Bahasa Indonesia |
-| 📖 **Panduan** | Step-by-step eksekusi + rekomendasi broker |
-| 🔧 **Debug** | Status modul + data source info |
-
----
-
-
-## 🔒 Catatan Penggunaan VPN
-
-Beberapa fitur QuantPulse Pro membutuhkan koneksi ke server exchange internasional (OKX, Bybit, Binance) yang **mungkin diblokir** di beberapa jaringan internet Indonesia, terutama dari ISP tertentu atau jaringan kantor/kampus.
-
-### Kapan VPN Diperlukan?
-
-| Kondisi | Perlu VPN? |
-|---------|-----------|
-| Data crypto dari OKX/Bybit tidak muncul | ✅ Ya |
-| Muncul error `451 Unavailable For Legal Reasons` | ✅ Ya |
-| Muncul error `connection timeout` ke exchange | ✅ Ya |
-| Data saham IDX/US dari yfinance tidak muncul | ❌ Tidak |
-| Data Forex/Gold tidak muncul | ❌ Tidak |
-| Semua data tampil normal | ❌ Tidak perlu |
-
-> 💡 **Tips**: Buka tab **🔧 Debug** → lihat kolom **Sumber**. Jika tertulis `DEMO` padahal Mode Demo sudah OFF, kemungkinan koneksi ke exchange diblokir.
-
-### Rekomendasi VPN Gratis
-
-| VPN | Platform | Batas Data | Cocok untuk |
-|-----|----------|-----------|-------------|
-| **Cloudflare WARP** | Windows, Mac, Android, iOS | Unlimited | Terbaik — cepat dan gratis |
-| **ProtonVPN** | Semua platform | Unlimited (speed dibatasi) | Alternatif terpercaya |
-| **Windscribe** | Semua platform | 10 GB/bulan | Jika WARP tidak cukup |
-| **TunnelBear** | Semua platform | 500 MB/bulan | Testing saja |
-
-### Setup Cloudflare WARP (Direkomendasikan)
-
-Cloudflare WARP adalah pilihan terbaik karena **gratis, unlimited, dan tidak memperlambat koneksi** secara signifikan.
-
-**Windows / Mac:**
-1. Download di [one.one.one.one](https://one.one.one.one)
-2. Install dan buka aplikasi
-3. Klik tombol toggle → status berubah jadi **Connected**
-4. Buka QuantPulse → Refresh Data
-
-**Android / iOS:**
-1. Download **"1.1.1.1 + WARP"** dari Play Store / App Store
-2. Buka app → aktifkan WARP
-3. Buka browser → akses dashboard QuantPulse
-
-**Linux:**
-```bash
-# Install WARP CLI
-curl -fsSL https://pkg.cloudflareclient.com/pubkey.gpg | sudo gpg --yes --dearmor -o /usr/share/keyrings/cloudflare-warp-archive-keyring.gpg
-echo "deb [signed-by=/usr/share/keyrings/cloudflare-warp-archive-keyring.gpg] https://pkg.cloudflareclient.com/ $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/cloudflare-client.list
-sudo apt update && sudo apt install cloudflare-warp
-warp-cli connect
-```
-
-### Jika VPN Tidak Tersedia
-
-QuantPulse dirancang dengan **fallback otomatis**. Jika exchange diblokir, sistem mencoba exchange lain secara berurutan:
-
-```
-OKX → Bybit → KuCoin → Binance → Demo Data
-```
-
-Untuk Forex, Gold, Oil, dan Saham IDX/US yang menggunakan **yfinance**, VPN **tidak diperlukan** karena yfinance tidak diblokir di Indonesia.
-
-### Catatan Hukum
-
-> ⚠️ Penggunaan VPN untuk mengakses platform trading internasional merupakan tanggung jawab pengguna sepenuhnya. Pastikan penggunaan VPN sesuai dengan hukum dan regulasi yang berlaku di wilayah kamu. QuantPulse Pro tidak berafiliasi dengan layanan VPN manapun.
+| # | Tab | Fungsi |
+|---|-----|--------|
+| 1 | 📡 **Sinyal** | Candlestick chart + EMA + Volume + sinyal BUY/SELL/HOLD |
+| 2 | 🛡️ **Risk & Eksekusi** | Entry/SL/TP + level broker + estimasi profit IDR/USD |
+| 3 | 📁 **Portfolio** | Posisi aktif + PnL realtime + alert + riwayat trade |
+| 4 | 📊 **Backtest** | Simulasi historis + Walk-Forward + Grade A–F |
+| 5 | 📐 **S&R** | Support & Resistance 4 metode + Fibonacci |
+| 6 | 🕯️ **Candle** | 18 pola candlestick + konfirmasi sinyal |
+| 7 | 🔮 **Prediksi** | Proyeksi 5 candle + entry broker |
+| 8 | 👁️ **Watchlist** | Scan multi-simbol + highlight sinyal terkuat |
+| 9 | 📔 **Jurnal** | Catat trade + statistik pribadi + export CSV |
+| 10 | 🧮 **Kalkulator** | Hitung lot/margin/profit tanpa data live |
+| 11 | 📖 **Panduan** | Step-by-step eksekusi + rekomendasi broker |
+| 12 | 🔧 **Debug** | Status modul + data source info |
 
 ---
+
 ## ⚠️ Disclaimer
 
-> **QuantPulse Pro adalah alat analisis, bukan saran investasi.**
+> QuantPulse Pro adalah **alat analisis**, bukan saran investasi atau jaminan profit.
 >
-> - Semua sinyal dan prediksi bersifat **estimasi**, bukan jaminan profit
-> - Selalu gunakan **Stop Loss** di setiap posisi
-> - Jangan investasikan uang yang tidak siap untuk hilang
-> - Backtesting bagus **tidak menjamin** performa di masa depan
+> - Semua sinyal dan prediksi bersifat estimasi berdasarkan data historis
+> - **Selalu pasang Stop Loss** — tidak ada pengecualian
+> - Jangan investasikan uang yang tidak siap hilang
+> - Backtesting bagus tidak menjamin performa di masa depan
 > - Penggunaan sepenuhnya menjadi tanggung jawab pengguna
 
 ---
@@ -387,6 +322,8 @@ MIT License — bebas digunakan, dimodifikasi, dan didistribusikan.
 
 **Dibuat dengan ❤️ untuk trader Indonesia**
 
-*QuantPulse Pro V3 — Multi-Market · Multi-Platform · AI-Powered*
+*QuantPulse Pro V3 · Multi-Market · Multi-Platform · AI-Powered*
+
+⭐ Jika bermanfaat, berikan star di GitHub!
 
 </div>
