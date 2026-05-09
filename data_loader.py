@@ -163,9 +163,10 @@ def load_ohlcv(
         # Auto-detect berdasarkan format simbol
         sym_clean = sym_upper.replace(".JK","").replace("-","")
 
-        if "USDT" in sym_upper or "BUSD" in sym_upper:
-            # Crypto pair
-            info = {"source": "ccxt", "symbol": f"{sym_upper[:3]}/USDT", "market": "crypto"}
+        if "USDT" in sym_upper:
+            # Perbaiki agar koin 4 huruf seperti AAVE bisa terbaca
+            koin = sym_upper.replace("USDT", "")
+            info = {"source": "ccxt", "symbol": f"{koin}/USDT", "market": "crypto"}
         elif sym_upper.endswith(".JK") or market == "stock_id":
             # Saham IDX — tambahkan .JK otomatis
             yf_sym = sym_upper if sym_upper.endswith(".JK") else f"{sym_upper}.JK"
@@ -264,10 +265,9 @@ def _fetch_ccxt(symbol: str, interval: str, limit: int) -> Optional[pd.DataFrame
     tf = CCXT_TIMEFRAME.get(interval, "1h")
 
     exchanges = [
-        ccxt.okx(),                                               # OKX — tidak diblokir
-        ccxt.bybit(),                                             # Bybit — tidak diblokir
-        ccxt.kucoin(),                                            # KuCoin — tidak diblokir
-        ccxt.binance({"options": {"defaultType": "spot"}}),       # Binance — kadang diblokir
+        ccxt.kraken(),                                            # Kraken — Paling aman buat server US
+        ccxt.kucoin(),                                            # KuCoin — Cadangan
+        ccxt.binance({"options": {"defaultType": "spot"}}),       # Binance — Pilihan terakhir
     ]
 
     for exchange in exchanges:
@@ -473,10 +473,10 @@ def smart_load(
         df = load_ohlcv(symbol, interval, limit, market=market)
         return df, False
     except Exception as e:
-        # KITA MATIKAN FALLBACK SEMENTARA BIAR ERRORNYA MUNCUL DI LAYAR
-        import streamlit as st
-        st.error(f"🚨 GAGAL NARIK DATA API! Penyebab aslinya: {e}")
-        st.stop() # Paksa aplikasi berhenti biar ketahuan error-nya
+        import logging
+        logging.getLogger("QuantPulse").error(f"Gagal narik data {symbol}: {e}")
+        # Kalau API exchange ngadat, otomatis alihkan ke data simulasi agar web tidak crash
+        return generate_demo(symbol, interval, limit), True
 
 
 def smart_load_mtfa(

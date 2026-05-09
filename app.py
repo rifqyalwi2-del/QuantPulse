@@ -71,6 +71,22 @@ def _import_modules():
         mods["portfolio_error"] = str(e)
 
     try:
+        from watchlist   import render_watchlist
+        mods["render_watchlist"]  = render_watchlist
+    except Exception as e:
+        mods["watchlist_error"]   = str(e)
+    try:
+        from journal    import render_journal, get_journal
+        mods["render_journal"]    = render_journal
+        mods["get_journal"]       = get_journal
+    except Exception as e:
+        mods["journal_error"]     = str(e)
+    try:
+        from calculator import render_calculator
+        mods["render_calculator"] = render_calculator
+    except Exception as e:
+        mods["calculator_error"]  = str(e)
+    try:
         from backtester import Backtester, render_backtest
         mods["Backtester"]     = Backtester
         mods["render_backtest"]= render_backtest
@@ -467,8 +483,8 @@ if RE and signal_result and df is not None:
 # TABS
 # =============================================================================
 
-tab_signal, tab_risk, tab_portfolio, tab_backtest, tab_sr, tab_candle, tab_predict, tab_guide, tab_debug = st.tabs([
-    "📡 Sinyal", "🛡️ Risk & Eksekusi", "📁 Portfolio", "📊 Backtest", "📐 S&R", "🕯️ Candle", "🔮 Prediksi", "📖 Panduan", "🔧 Debug"
+tab_signal, tab_risk, tab_portfolio, tab_backtest, tab_sr, tab_candle, tab_predict, tab_watchlist, tab_journal, tab_calc, tab_guide, tab_debug = st.tabs([
+    "📡 Sinyal", "🛡️ Risk & Eksekusi", "📁 Portfolio", "📊 Backtest", "📐 S&R", "🕯️ Candle", "🔮 Prediksi", "👁️ Watchlist", "📔 Jurnal", "🧮 Kalkulator", "📖 Panduan", "🔧 Debug"
 ])
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -1129,6 +1145,50 @@ with tab_predict:
 
 # ─────────────────────────────────────────────────────────────────────────────
 # TAB PANDUAN — Step-by-step cara eksekusi
+
+# ─────────────────────────────────────────────────────────────────────────────
+# TAB WATCHLIST
+# ─────────────────────────────────────────────────────────────────────────────
+with tab_watchlist:
+    RWL = M.get("render_watchlist")
+    if RWL:
+        RWL(interval=ltf)
+    else:
+        st.error("watchlist.py tidak ditemukan")
+        if "watchlist_error" in M:
+            st.code(M["watchlist_error"])
+
+# ─────────────────────────────────────────────────────────────────────────────
+# TAB JURNAL
+# ─────────────────────────────────────────────────────────────────────────────
+with tab_journal:
+    RJ = M.get("render_journal")
+    if RJ:
+        RJ(
+            symbol        = symbol,
+            market        = market,
+            signal_result = signal_result,
+            risk_result   = risk_result,
+            interval      = ltf,
+        )
+    else:
+        st.error("journal.py tidak ditemukan")
+
+# ─────────────────────────────────────────────────────────────────────────────
+# TAB KALKULATOR
+# ─────────────────────────────────────────────────────────────────────────────
+with tab_calc:
+    RC = M.get("render_calculator")
+    if RC:
+        RC(
+            default_capital = capital,
+            default_price   = risk_result.entry_price   if risk_result else 0.0,
+            default_sl      = risk_result.stop_loss      if risk_result else 0.0,
+            market          = market,
+        )
+    else:
+        st.error("calculator.py tidak ditemukan")
+
 # ─────────────────────────────────────────────────────────────────────────────
 with tab_guide:
     st.markdown("## 📖 Panduan Eksekusi QuantPulse Pro")
